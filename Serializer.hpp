@@ -8,6 +8,7 @@
 
 #include "lua\lobject.hpp"
 
+#define R_USERDATA 8
 #define HEADER R"(<?xml version="1.0" encoding="utf-8" ?>
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4"
 <External>null</External>
@@ -30,7 +31,8 @@ namespace Serializer {
 		using Properties = Instance::Properties;
 
 		static Instance parseObject(TValue *obj) {
-
+			if (obj->tt != R_USERDATA)
+				throw new std::exception("Object not a userdata");
 		}
 
 		static std::string toXML(Properties& props) {
